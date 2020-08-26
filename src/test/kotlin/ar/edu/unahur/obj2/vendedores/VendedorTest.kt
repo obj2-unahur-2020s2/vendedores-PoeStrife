@@ -21,6 +21,11 @@ class VendedorTest : DescribeSpec({
       }
     }
   }
+  describe("esInfluyente"){
+      it ("no es influyente"){
+        vendedorFijo.vendedorInfluyente().shouldBeFalse()
+      }
+  }
 
   describe("Viajante") {
     val cordoba = Provincia(2000000)
@@ -35,5 +40,44 @@ class VendedorTest : DescribeSpec({
         viajante.puedeTrabajarEn(villaDolores).shouldBeFalse()
       }
     }
+    describe("esInfluyente"){
+      it ("no es influyente"){
+        viajante.vendedorInfluyente().shouldBeFalse()
+      }
+    }
   }
+
+
+  describe("Comercio corresponsal"){
+    val entreRios = Provincia(3000000)
+    val diamante = Ciudad(entreRios)
+    val sucursal1 = ComercioCorresponsal(listOf(diamante))
+    
+    val santaFe = Provincia(45000000)
+    val rosario = Ciudad(santaFe)
+    val sucursal2 = ComercioCorresponsal(listOf(rosario))
+    
+    describe("puedeTrabajarEn"){
+      it("una ciudad donde tenga sucursal"){
+        ComercioCorresponsal.puedeTrabajarEn(diamante).shouldBeTrue()
+      }
+    }
+    describe("puedeTranajarEn"){
+      it ("una ciudad donde tenga sucursal") {
+        ComercioCorresponsal.puedeTrabajarEn(rosario).shouldBeTrue()
+      }
+    }
+    describe("puedeTranajarEn"){
+      it ("una ciudad donde tenga sucursal") {
+        ComercioCorresponsal.puedeTrabajarEn(sanIgnacio).shouldBeFalse()
+      }
+    }
+  }
+  describe("esInfluyente"){
+    it ("no es influyente"){
+
+      ComercioCorresponsal.vendedorInfluyente().shouldBeFalse()
+    }
+  }
+
 })
